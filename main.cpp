@@ -1,24 +1,53 @@
 #include <iostream>
-#include "StringList.h"
+#include <vector>
 
-StringList f() {
-    char buffer[] = "1235616";
-    StringList s(buffer);
-    buffer[0] = '7';
-    return s;
+using namespace std;
+
+int partition(vector<int>& arr, int low, int high, int pivot) {
+    int i = low - 1;
+    int j = high + 1;
+
+    while (true) {
+        do {
+            i++;
+        } while (arr[i] < pivot);
+
+        do {
+            j--;
+        } while (arr[j] > pivot);
+
+        if (i >= j) {
+            return j;
+        }
+
+        swap(arr[i], arr[j]);
+    }
 }
 
 int main() {
-    StringList s1("163641");
-    StringList s2("5875");
-    StringList s3;
-    //s1=s2;
-    std::cout<<s1[0]<<std::endl;
-    std::cout<<"----------------"<<!s1;
-    std::cout<<"----------------"<<!s3;
-  //  std::cout<< &s1<<"\t";
-    // std::cout<<s1+s2<<"\t";
-   // std::cout <<(s1+=s2);
-  /* int i=3;
-   (char* )i;*/
+    int n;
+    cin >> n;
+
+    vector<int> arr(n);
+    for (int i = 0; i < n; i++) {
+        cin >> arr[i];
+    }
+
+    int pivot;
+    cin >> pivot;
+    if (n==0){
+        cout<<"0"<<endl;
+        cout<<"0"<<endl;
+    }
+    int partitionIndex = partition(arr, 0, n - 1, pivot);
+
+    int countLessThanX = partitionIndex + 1;
+    int countGreaterThanX = n - countLessThanX;
+
+    cout << countGreaterThanX << endl;
+    cout << countLessThanX << endl;
+
+
+    return 0;
 }
+
